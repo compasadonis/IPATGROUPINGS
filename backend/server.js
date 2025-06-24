@@ -15,7 +15,7 @@ const db = mysql2.createPool({
   host: "localhost",
   user: "root",
   password: "",
-  database: "compas_db", // Updated database name
+  database: "groupings_db", // Updated database name
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

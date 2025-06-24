@@ -1,6 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import { TextField, Button, Container, Typography } from "@mui/material";
+import { 
+  TextField, 
+  Button, 
+  Container, 
+  Typography,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel 
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -9,8 +18,16 @@ const Register = () => {
   const [role, setRole] = useState("");
   const navigate = useNavigate();
 
+  const roles = [
+    { value: "Student1", label: "Student 1" },
+    { value: "Student2", label: "Student 2" },
+    { value: "Student3", label: "Student 3" },
+    { value: "Staff", label: "Staff" },
+    { value: "Admin", label: "Admin" }
+  ];
+
   const handleRegister = async () => {
-    if (!username || !password) {
+    if (!username || !password || !role) {
       alert("Please fill in all fields");
       return; 
     }
@@ -65,14 +82,31 @@ const Register = () => {
         onChange={(e) => setPassword(e.target.value)}
         InputLabelProps={{ style: { color: "#d32f2f" } }}
       />
-      <TextField
-        label="Role"
-        fullWidth
-        margin="normal"
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
-        InputLabelProps={{ style: { color: "#d32f2f" } }}
-      />
+      
+      <FormControl fullWidth margin="normal">
+        <InputLabel sx={{ color: "#d32f2f" }}>Role</InputLabel>
+        <Select
+          value={role}
+          label="Role"
+          onChange={(e) => setRole(e.target.value)}
+          sx={{
+            color: "#d32f2f",
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#d32f2f"
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#d32f2f !important"
+            }
+          }}
+        >
+          {roles.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       <Button
         variant="contained"
         fullWidth
